@@ -1,0 +1,28 @@
+<%- include('partials/header', { pageTitle: 'View Book' }) %>
+
+<section class="view-box">
+  <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-L.jpg" alt="cover">
+  <div class="info">
+    <h2><%= book.title %></h2>
+    <p class="author"><%= book.author %></p>
+
+    <div class="stars">
+      <% for(let i=1;i<=5;i++){ %>
+        <i class="bi bi-star<%= i<=book.rating?'-fill':'' %>"></i>
+      <% } %>
+      <span class="num"><%= book.rating %>/5</span>
+    </div>
+
+    <p><strong>Review:</strong> <%= book.review %></p>
+    <p><strong>Read:</strong> <%= book.read_date?.toISOString().slice(0,10) %></p>
+
+    <div class="actions">
+      <a class="btn" href="/edit/<%= book.id %>">Edit</a>
+      <form action="/delete/<%= book.id %>" method="post" onsubmit="return confirm('Delete?')">
+        <button class="btn danger">Delete</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

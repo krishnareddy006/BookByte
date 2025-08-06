@@ -1,0 +1,29 @@
+<%- include('partials/header', { pageTitle: 'Home', query, sort }) %>
+
+<h1 class="page-title">My Books</h1>
+
+<section class="card-grid">
+  <% books.forEach(b => { %>
+    <article class="bb-card">
+      <img src="https://covers.openlibrary.org/b/isbn/<%= b.isbn %>-L.jpg"
+           alt="cover" onerror="this.src='/img/placeholder.jpg'">
+      <div class="card-body">
+        <h3><%= b.title %></h3>
+        <p class="author"><%= b.author %></p>
+
+        <div class="stars">
+          <% for(let i=1;i<=5;i++){ %>
+            <i class="bi bi-star<%= i<=b.rating?'-fill':'' %>"></i>
+          <% } %>
+        </div>
+
+        <p class="review"><%= (b.review||'').slice(0,60) %>...</p>
+        <p class="date"><%= b.read_date ? b.read_date.toISOString().slice(0,10) : '' %></p>
+
+        <a class="btn" href="/book/<%= b.id %>">View</a>
+      </div>
+    </article>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

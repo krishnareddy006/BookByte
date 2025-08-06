@@ -1,0 +1,29 @@
+<%- include('partials/header', { pageTitle: 'Create Book' }) %>
+
+<h1 class="page-title"><%= book ? 'Edit' : 'Add' %> Book</h1>
+
+<form class="bb-form" action="<%= book ? '/edit/'+book.id : '/create' %>" method="post">
+  <label>ISBN
+    <input name="isbn" required value="<%= book?.isbn||'' %>">
+  </label>
+
+  <label>Rating
+    <select name="rating">
+      <% for(let i=1;i<=5;i++){ %>
+        <option value="<%= i %>" <%= book?.rating==i?'selected':'' %>><%= i %></option>
+      <% } %>
+    </select>
+  </label>
+
+  <label>Review
+    <textarea name="review"><%= book?.review||'' %></textarea>
+  </label>
+
+  <label>Read Date
+    <input type="date" name="read_date" value="<%= book?.read_date?.toISOString().slice(0,10)||'' %>">
+  </label>
+
+  <button class="btn primary">Save</button>
+</form>
+
+<%- include('partials/footer') %>
