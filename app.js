@@ -10,7 +10,9 @@ dotenv.config();
 const { PORT, PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 
 const pool = new pg.Pool({ host: PGHOST, port: PGPORT, database: PGDATABASE,
-                           user: PGUSER, password: PGPASSWORD });
+                           user: PGUSER, password: PGPASSWORD,  ssl: {
+    rejectUnauthorized: false
+  } });
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
