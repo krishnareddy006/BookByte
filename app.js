@@ -7,14 +7,15 @@ import pg       from 'pg';
 import axios    from 'axios';
 
 dotenv.config();
+const { PORT, DATABASE_URL, PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL || {
-    host: process.env.PGHOST,
-    port: process.env.PGPORT,
-    database: process.env.PGDATABASE,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
+  connectionString: DATABASE_URL || {
+    host: PGHOST,
+    port: PGPORT,
+    database: PGDATABASE,
+    user: PGUSER,
+    password: PGPASSWORD,
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
   }
 });
@@ -23,7 +24,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')));
 app.set('view engine', 'ejs');
-
 
 // --------- helpers -------------------------------------------------------
 async function fetchBookMeta(isbn) {
