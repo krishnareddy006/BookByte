@@ -24,5 +24,3 @@ BookByte is a simple full-stack web application that helps you manage and track 
 
 ---
 
-git clone https://github.com/your-username/bookbyte.git
-cd bookbyte
